@@ -1,6 +1,6 @@
 import test from 'ava';
 import request from 'supertest';
-import createServer from '../source/server';
+import createServer from '../server';
 
 const testStatus = (app, route, status) => {
 	return new Promise((resolve, reject) => {

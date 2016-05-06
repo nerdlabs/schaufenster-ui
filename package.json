@@ -9,7 +9,7 @@
   },
   "ava": {
     "files": [
-      "test/**/*.js"
+      "source/**/__test__/*.js"
     ],
     "source": [
       "source/**/*.js"
