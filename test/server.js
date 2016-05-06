@@ -19,3 +19,8 @@ test('/health responds with status 200', async t => {
 	const app = createServer();
 	t.true(await testStatus(app, '/health', 200), 'it should respond healthy');
 });
+
+test('unknown routes return status 404', async t => {
+	const app = createServer();
+	t.true(await testStatus(app, '/blah', 404), 'it should respond with 404');
+});

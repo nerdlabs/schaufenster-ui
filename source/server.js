@@ -5,7 +5,5 @@ export default function createServer() {
 
 	app.get('/health', (request, response) => response.status(200).end());
 
-	app.listen(3000, () => console.log('App listening on port 3000'));
-
 	return app;
 };
