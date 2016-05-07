@@ -2,7 +2,9 @@ import * as React from 'react';
 import {renderToString} from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
 
-export default (routes, template) => ({url:location}, response, next) => {
+export default (routes, template, props) => ({url:location}, response, next) => {
+	const createElement = (C, p) => React.createElement(C, {...p, ...props});
+
 	match({routes, location}, (error, location, renderProps) => {
 		if (error) {
 			return next(error);
@@ -10,7 +12,7 @@ export default (routes, template) => ({url:location}, response, next) => {
 			return response.redirect(location.pathname);
 		} else if (renderProps) {
 			const body = renderToString((
-				<RouterContext {...renderProps} />
+				<RouterContext {...renderProps} createElement={createElement} />
 			));
 			response.status(200).send(template.replace('@@@body@@@', body));
 		} else {

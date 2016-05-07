@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Navigation from '../../molecules/navigation';
 
-export default function App({components, children}) {
+export default function App({tree: components, children}) {
 	return (
 		<div>
 			<Navigation tree={components} />
