@@ -45,6 +45,7 @@
   "homepage": "https://github.com/nerdlabs/schaufenster-ui#readme",
   "devDependencies": {
     "ava": "0.14.0",
+    "babel-plugin-espower": "2.1.2",
     "babel-polyfill": "6.8.0",
     "babel-preset-es2015-node": "6.0.1",
     "babel-preset-react": "6.5.0",
