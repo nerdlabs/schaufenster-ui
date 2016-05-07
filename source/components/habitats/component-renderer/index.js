@@ -24,9 +24,9 @@ export default function ComponentRenderer({tree, id}) {
 		<div>
 			{isComponent(components) ?
 				(<Component component={components} />) :
-				[...components.values()].map(component => {
+				[...components.values()].map((component, index) => {
 					return isComponent(component) ?
-						(<Component component={component} />) :
+						(<Component key={index} component={component} />) :
 						null
 				})
 			}
