@@ -11,7 +11,7 @@ export default function App({components, children}) {
 }
 
 App.propTypes = {
-	components: Navigation.propTypes.components,
+	components: Navigation.propTypes.tree,
 	children: React.PropTypes.oneOfType([
 		React.PropTypes.element,
 		React.PropTypes.string
@@ -19,5 +19,5 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-	components: Navigation.defaultProps.components
+	components: Navigation.defaultProps.tree
 };
