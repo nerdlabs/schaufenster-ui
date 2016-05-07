@@ -1,23 +1,23 @@
 import * as React from 'react';
 import Navigation from '../../molecules/navigation';
 
-export default function App({tree: components, children}) {
+export default function App({tree, children}) {
 	return (
 		<div>
-			<Navigation tree={components} />
+			<Navigation tree={tree} />
 			{children}
 		</div>
 	);
 }
 
 App.propTypes = {
-	components: Navigation.propTypes.tree,
+	tree: Navigation.propTypes.tree,
 	children: React.PropTypes.oneOfType([
 		React.PropTypes.element,
-		React.PropTypes.string
+		React.PropTypes.node
 	])
 };
 
 App.defaultProps = {
-	components: Navigation.defaultProps.tree
+	tree: Navigation.defaultProps.tree
 };
