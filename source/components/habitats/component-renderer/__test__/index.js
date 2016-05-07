@@ -44,7 +44,7 @@ test('<ComponentRenderer /> renders nothing when multiple components are passed 
 
 test('<ComponentRenderer /> renders a list of components', t => {
 	const vdom = shallow(
-		<ComponentRenderer tree={tree} id="atoms" />
+		<ComponentRenderer tree={tree} params={{splat: 'atoms'}} />
 	);
 
 	const it = `should render button and image`;
@@ -56,7 +56,7 @@ test('<ComponentRenderer /> renders a list of components', t => {
 
 test('<ComponentRenderer /> renders a single component', t => {
 	const vdom = shallow(
-		<ComponentRenderer tree={tree} id="atoms/button" />
+		<ComponentRenderer tree={tree} params={{splat: 'atoms/button'}} />
 	);
 
 	const it = `should render button component`;

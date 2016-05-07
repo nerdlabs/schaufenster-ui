@@ -17,7 +17,7 @@ const getNested = (tree, path) => {
 	return temp;
 };
 
-export default function ComponentRenderer({tree, id}) {
+export default function ComponentRenderer({tree, params: {splat: id}}) {
 	const components = getNested(tree, id);
 
 	return (
@@ -36,10 +36,12 @@ export default function ComponentRenderer({tree, id}) {
 
 ComponentRenderer.propTypes = {
 	tree: React.PropTypes.instanceOf(Map),
-	id: React.PropTypes.string
+	params: React.PropTypes.shape({
+		splat: React.PropTypes.string
+	})
 };
 
 ComponentRenderer.defaultProps = {
 	tree: new Map(),
-	id: ''
+	params: {splat: ''}
 };
