@@ -14,7 +14,7 @@ export default (routes, template, props) => ({url:location}, response, next) => 
 			const body = renderToString((
 				<RouterContext {...renderProps} createElement={createElement} />
 			));
-			response.status(200).send(template.replace('@@@body@@@', body));
+			response.status(200).send(template(body, props));
 		} else {
 			response.status(404).end('Not found');
 		}
