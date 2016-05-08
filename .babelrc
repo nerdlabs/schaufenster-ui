@@ -1,7 +1,18 @@
 {
-  "presets": [
-    "es2015",
-    "stage-0",
-    "react"
-  ]
+  "env": {
+    "node": {
+      "presets": [
+        "es2015-node",
+        "stage-0",
+        "react"
+      ]
+    },
+    "browser": {
+      "presets": [
+        "es2015",
+        "stage-0",
+        "react"
+      ]
+    }
+  }
 }

@@ -4,13 +4,40 @@
   "description": "easy styleguides for react projects",
   "main": "distribution/index.js",
   "scripts": {
-    "test": "ava",
-    "start": "node index.js",
+    "test": "better-npm-run test",
+    "start": "better-npm-run start",
     "prebuild": "mkdir -p distribution",
-    "build": "NODE_ENV=production browserify -t babelify -t envify -t uglifyify source/client.js -o distribution/client.js",
+    "build": "better-npm-run build",
     "postbuild": "uglifyjs distribution/client.js -mc warnings=false -o distribution/client.js",
     "prewatch": "mkdir -p distribution",
-    "watch": "watchify -dv -t babelify -o distribution/client.js source/client.js"
+    "watch": "better-npm-run watch"
+  },
+  "betterScripts": {
+    "test": {
+      "command": "ava",
+      "env": {
+        "BABEL_ENV": "node"
+      }
+    },
+    "start": {
+      "command": "node index.js",
+      "env": {
+        "BABEL_ENV": "node"
+      }
+    },
+    "build": {
+      "command": "browserify -t babelify -t envify -t uglifyify -o distribution/client.js source/client.js",
+      "env": {
+        "NODE_ENV": "production",
+        "BABEL_ENV": "browser"
+      }
+    },
+    "watch": {
+      "command": "watchify -dv -t babelify -o distribution/client.js source/client.js",
+      "env": {
+        "BABEL_ENV": "browser"
+      }
+    }
   },
   "ava": {
     "files": [
@@ -53,10 +80,12 @@
     "babel-plugin-espower": "2.1.2",
     "babel-polyfill": "6.8.0",
     "babel-preset-es2015": "6.0.1",
+    "babel-preset-es2015-node": "6.0.1",
     "babel-preset-react": "6.5.0",
     "babel-preset-stage-0": "6.5.0",
     "babel-register": "6.8.0",
     "babelify": "7.3.0",
+    "better-npm-run": "0.0.8",
     "browserify": "13.0.1",
     "envify": "3.4.0",
     "enzyme": "2.2.0",
