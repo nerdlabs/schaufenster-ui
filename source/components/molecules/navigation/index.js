@@ -1,32 +1,39 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 
-const isMap = x => x && x.constructor && x.constructor.name === 'Map';
+const addCategories = patterns => {
+	return patterns.reduce((ids, {id}) => {
+		const parts = id.split('/').slice(0, -1);
 
-export default function Navigation({tree, path}) {
+		const categories = parts.reduce((categories, part, i) => {
+			const category = parts.slice(0, i + 1).join('/');
+			const result = ids.includes(category) ? [] : [category];
+
+			return [...categories, ...result];
+		}, []);
+
+		return [...ids, ...categories, id];
+	}, []);
+};
+
+export default function Navigation({patterns, path}) {
 	return (
 		<ul>
-			{[...tree.entries()].map(([name, value]) => (
-				<li key={name}>
-					<Link to={`/show${[path, name].join('/')}`}>{name}</Link>
-					{isMap(value) ? (
-						<Navigation
-							tree={value}
-							path={[path, name].join('/')}
-							/>
-					) : null}
-				</li>
-			))}
+			{addCategories(patterns).map(id => {
+				return (
+					<li key={id}>
+						<Link to={`/show/${id}`}>{id}</Link>
+					</li>
+				);
+			})}
 		</ul>
 	);
 }
 
 Navigation.propTypes = {
-	tree: React.PropTypes.instanceOf(Map),
-	path: React.PropTypes.string
+	patterns: React.PropTypes.arrayOf(React.PropTypes.any)
 };
 
 Navigation.defaultProps = {
-	tree: new Map(),
-	path: ''
+	patterns: []
 };

@@ -3,20 +3,22 @@ import test from 'ava';
 import {shallow} from 'enzyme';
 import Navigation from '../';
 
-const onelevel = new Map([
-	['atoms', {}],
-	['molecules', {}]
-]);
+const onelevel = [{
+	id: 'atoms'
+}, {
+	id: 'molecules'
+}];
 
-const twolevels = new Map([
-	['atoms', new Map([
-		['button', {}],
-		['input', {}]
-	])]
-]);
+const twolevels = [{
+	id: 'atoms/button'
+}, {
+	id: 'atoms/input'
+}, {
+	id: 'atoms/image'
+}];
 
 test('<Navigation /> renders Link elements for navigation', t => {
-	const vdom = shallow(<Navigation tree={onelevel} />);
+	const vdom = shallow(<Navigation patterns={onelevel} />);
 
 	{
 		const it = `should render two Links`;
@@ -27,29 +29,32 @@ test('<Navigation /> renders Link elements for navigation', t => {
 	}
 	{
 		const it = `should set the correct link target`;
-		const actual = vdom.find('Link').first().prop('to');
-		const expected = '/show/atoms';
+		const actual = vdom.find('Link[to="/show/atoms"]').length;
+		const expected = 1;
 
 		t.is(actual, expected, it);
 	}
 });
 
-test('<Navigation /> renders nested navigation', t => {
-	const vdom = shallow(<Navigation tree={twolevels} />);
+test('<Navigation /> renders Link elements for navigation', t => {
+	const vdom = shallow(<Navigation patterns={twolevels} />);
 
-	const it = `should render another navigation inside`;
-	const actual = vdom.find('Navigation').get(0);
-	const expected = (<Navigation tree={twolevels.get('atoms')} path="/atoms" />);
+	{
+		const it = `should set the correct link target for category`;
+		const actual = vdom.find('Link[to="/show/atoms"]').length;
+		const expected = 1;
 
-	t.deepEqual(actual, expected, it);
-});
+		t.is(actual, expected, it);
+	}
+	{
+		const it = `should set correct link targets`;
+		const actual = vdom
+			.find('Link')
+			.map(link => link.prop('to'))
+			.filter(id => id !== '/show/atoms');
 
-test('<Navigation /> prepends nested links with `path` prop', t => {
-	const vdom = shallow(<Navigation tree={twolevels.get('atoms')} path="/atoms" />);
+		const expected = twolevels.map(pattern => `/show/${pattern.id}`);
 
-	const it = `should set the correct link target`;
-	const actual = vdom.find('Link').first().prop('to');
-	const expected = '/show/atoms/button';
-
-	t.is(actual, expected, it);
+		t.deepEqual(actual, expected, it);
+	}
 });

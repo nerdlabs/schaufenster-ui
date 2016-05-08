@@ -28,18 +28,6 @@ test('<ComponentRenderer /> renders nothing when no components are passed to it'
 	t.is(actual, expected, it);
 });
 
-test('<ComponentRenderer /> renders nothing when multiple components are passed to it', t => {
-	const vdom = shallow(
-		<ComponentRenderer patterns={patterns} />
-	);
-
-	const it = `should render nothing`;
-	const actual = vdom.children().length;
-	const expected = 0;
-
-	t.is(actual, expected, it);
-});
-
 test('<ComponentRenderer /> renders a list of components', t => {
 	const vdom = shallow(
 		<ComponentRenderer patterns={patterns} params={{splat: 'atoms'}} />

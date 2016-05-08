@@ -1,12 +1,10 @@
 import * as React from 'react';
 import Navigation from '../../molecules/navigation';
-import {createTree} from 'schaufenster';
 
 export default function App({patterns, children}) {
-	const tree = createTree(patterns);
 	return (
 		<div>
-			<Navigation tree={tree} />
+			<Navigation patterns={patterns} />
 			{children}
 		</div>
 	);
