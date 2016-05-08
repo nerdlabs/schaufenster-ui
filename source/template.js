@@ -10,6 +10,7 @@ export default (body, props) => unindent(`
 	<body>
 		<div id="app">${body}</div>
 		<script id="initial-props" type="application/json">${JSON.stringify(props)}</script>
+		<script src="/static/components.js"></script>
 		<script src="/static/client.js"></script>
 	</body>
 	</html>

@@ -8,6 +8,8 @@
     "start": "better-npm-run start",
     "prebuild": "mkdir -p distribution",
     "build": "better-npm-run build",
+    "build:components": "better-npm-run build:components",
+    "postbuild:components": "uglifyjs distribution/components.js -mc warnings=false -o distribution/components.js",
     "postbuild": "uglifyjs distribution/client.js -mc warnings=false -o distribution/client.js",
     "prewatch": "mkdir -p distribution",
     "watch": "better-npm-run watch"
@@ -27,6 +29,13 @@
     },
     "build": {
       "command": "browserify -t babelify -t envify -t uglifyify -o distribution/client.js source/client.js",
+      "env": {
+        "NODE_ENV": "production",
+        "BABEL_ENV": "browser"
+      }
+    },
+    "build:components": {
+      "command": "browserify -t babelify -t envify -t uglifyify -o distribution/components.js source/entry.js",
       "env": {
         "NODE_ENV": "production",
         "BABEL_ENV": "browser"
