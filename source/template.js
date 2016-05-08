@@ -9,6 +9,7 @@ export default unindent(`
 	</head>
 	<body>
 		<div id="app">@@@body@@@</div>
+		<script src="/static/client.js"></script>
 	</body>
 	</html>
 `);

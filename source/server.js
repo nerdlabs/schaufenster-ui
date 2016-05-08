@@ -12,6 +12,9 @@ export default async function createServer() {
 	const app = express();
 
 	app.get('/health', (request, response) => response.status(200).end());
+
+	app.use('/static', express.static('distribution'));
+
 	const patterns = await readPatterns(
 		await findPatterns(join(__dirname, 'components'))
 	);
