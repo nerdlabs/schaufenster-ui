@@ -6,7 +6,6 @@ import routes from './routes';
 
 import findPatterns from '../../schaufenster/source/find-patterns';
 import readPatterns from '../../schaufenster/source/read-patterns';
-import createTree from '../../schaufenster/source/create-tree';
 
 export default async function createServer() {
 	const app = express();
@@ -18,9 +17,8 @@ export default async function createServer() {
 	const patterns = await readPatterns(
 		await findPatterns(join(__dirname, 'components'))
 	);
-	const tree = createTree(patterns);
 
-	app.use(reactMiddleware(routes, template, {tree}));
+	app.use(reactMiddleware(routes, template, {patterns}));
 
 	return app;
 };

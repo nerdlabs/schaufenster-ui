@@ -1,7 +1,9 @@
 import * as React from 'react';
 import Navigation from '../../molecules/navigation';
+import {createTree} from 'schaufenster';
 
-export default function App({tree, children}) {
+export default function App({patterns, children}) {
+	const tree = createTree(patterns);
 	return (
 		<div>
 			<Navigation tree={tree} />
@@ -11,7 +13,11 @@ export default function App({tree, children}) {
 }
 
 App.propTypes = {
-	tree: Navigation.propTypes.tree,
+	patterns: React.PropTypes.arrayOf(React.PropTypes.shape({
+		id: React.PropTypes.string,
+		path: React.PropTypes.string,
+		entry: React.PropTypes.string
+	})),
 	children: React.PropTypes.oneOfType([
 		React.PropTypes.element,
 		React.PropTypes.node
@@ -19,5 +25,5 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-	tree: Navigation.defaultProps.tree
+	patterns: []
 };

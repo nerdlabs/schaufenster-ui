@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Component from '../../organisms/component';
+import {createTree} from 'schaufenster';
 
 const isMap = x => x && x.constructor && x.constructor.name === 'Map';
 const isComponent = x => x && (x.id && x.path && x.entry);
@@ -17,7 +18,8 @@ const getNested = (tree, path) => {
 	return temp;
 };
 
-export default function ComponentRenderer({tree, params: {splat: id}}) {
+export default function ComponentRenderer({patterns, params: {splat: id}}) {
+	const tree = createTree(patterns);
 	const components = getNested(tree, id);
 
 	return (
@@ -38,10 +40,16 @@ ComponentRenderer.propTypes = {
 	tree: React.PropTypes.instanceOf(Map),
 	params: React.PropTypes.shape({
 		splat: React.PropTypes.string
-	})
+	}),
+	patterns: React.PropTypes.arrayOf(React.PropTypes.shape({
+		id: React.PropTypes.string,
+		path: React.PropTypes.string,
+		entry: React.PropTypes.string
+	}))
 };
 
 ComponentRenderer.defaultProps = {
 	tree: new Map(),
-	params: {splat: ''}
+	params: {splat: ''},
+	patterns: []
 };

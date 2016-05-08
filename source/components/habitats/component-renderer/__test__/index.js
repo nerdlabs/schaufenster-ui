@@ -3,20 +3,18 @@ import test from 'ava';
 import {shallow} from 'enzyme';
 import ComponentRenderer from '../';
 
-const tree = new Map([
-	['atoms', new Map([
-		['button', {
-			id: 'atoms/button',
-			path: './components/atoms/button',
-			entry: 'index.js'
-		}],
-		['image', {
-			id: 'atoms/image',
-			path: './components/atoms/image',
-			entry: 'index.js'
-		}]
-	])]
-]);
+const patterns = [
+	{
+		id: 'atoms/button',
+		path: './components/atoms/button',
+		entry: 'index.js'
+	},
+	{
+		id: 'atoms/image',
+		path: './components/atoms/image',
+		entry: 'index.js'
+	}
+];
 
 test('<ComponentRenderer /> renders nothing when no components are passed to it', t => {
 	const vdom = shallow(
@@ -32,7 +30,7 @@ test('<ComponentRenderer /> renders nothing when no components are passed to it'
 
 test('<ComponentRenderer /> renders nothing when multiple components are passed to it', t => {
 	const vdom = shallow(
-		<ComponentRenderer tree={tree} />
+		<ComponentRenderer patterns={patterns} />
 	);
 
 	const it = `should render nothing`;
@@ -44,7 +42,7 @@ test('<ComponentRenderer /> renders nothing when multiple components are passed 
 
 test('<ComponentRenderer /> renders a list of components', t => {
 	const vdom = shallow(
-		<ComponentRenderer tree={tree} params={{splat: 'atoms'}} />
+		<ComponentRenderer patterns={patterns} params={{splat: 'atoms'}} />
 	);
 
 	const it = `should render button and image`;
@@ -56,7 +54,7 @@ test('<ComponentRenderer /> renders a list of components', t => {
 
 test('<ComponentRenderer /> renders a single component', t => {
 	const vdom = shallow(
-		<ComponentRenderer tree={tree} params={{splat: 'atoms/button'}} />
+		<ComponentRenderer patterns={patterns} params={{splat: 'atoms/button'}} />
 	);
 
 	const it = `should render button component`;
